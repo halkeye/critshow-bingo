@@ -19,7 +19,7 @@ export class Square extends LitElement {
   star = false;
 
   @property({type: String})
-  text = ""
+  text = ''
 
   render() {
     return html`

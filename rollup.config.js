@@ -19,7 +19,10 @@ export default {
   },
   plugins: [
     index(),
-    replace({'Reflect.decorate': 'undefined'}),
+    replace({
+      'Reflect.decorate': 'undefined',
+      'process.env.NODE_ENV': JSON.stringify( 'production' )
+    }),
     resolve(),
     terser({
       module: true,

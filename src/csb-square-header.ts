@@ -15,7 +15,7 @@ export class SquareHeader extends LitElement {
         }
   `;
   @property({type: String})
-  label = ""
+  label = ''
 
   render() {
     return html`

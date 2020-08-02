@@ -1,6 +1,6 @@
 import {LitElement, html, customElement, property, css} from 'lit-element';
-import './csb-square'
-import './csb-square-header'
+import './csb-square';
+import './csb-square-header';
 
 @customElement('csb-board')
 export class CSBBoard extends LitElement {
@@ -32,8 +32,8 @@ export class CSBBoard extends LitElement {
       <csb-square-header label="N"></csb-square-header>
       <csb-square-header label="G"></csb-square-header>
       <csb-square-header label="O"></csb-square-header>
-      ${this.squares.map(sq => html`<csb-square text="${sq}" />`)}
-      <csb-square star class="star" />
+      ${this.squares.map(sq => html`<csb-square text="${sq}"></csb-square>`)}
+      <csb-square star class="star"></csb-square>
     `;
   }
 }

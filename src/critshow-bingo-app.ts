@@ -1,32 +1,41 @@
 import {LitElement, html, customElement, property, css} from 'lit-element';
+// import {Router} from '@vaadin/router'; 
+import { connect } from 'pwa-helpers';
+import { store, RootState } from './redux/store';
+import { setCharacters, setCharacterSquares } from './redux/feature/characters';
+
 import './csb-board';
 
 @customElement('critshow-bingo-app')
-export class CritshowBingoApp extends LitElement {
+export class CritshowBingoApp extends connect(store)(LitElement) {
   static styles = css`
-		:host {
-			display: block;
-			background-color: #3D0A00;
+    :host {
+      display: block;
+      background-color: #3D0A00;
 
-			padding: 10px;
-		}
-		img {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-		}
+      padding: 10px;
+    }
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
   `;
+
+  stateChanged(state: RootState) { 
+    this.squares = state.characters.characterSquares[state.characters.selectedCharacter] || [];
+    this.characters = state.characters.characters;
+  }
 
   @property({type: Array})
   squares: string[] = [];
 
-  @property({type: Number})
-  count = 0;
+  @property({type: Array})
+  characters: string[] = [];
 
   render() {
     return html`
-      <img src="/images/critshow-banner-5.png" alt="critshow banner" />
-      <csb-board .squares="${this.squares}" />
+      <csb-board .squares="${this.squares}"></csb-board>
     `;
   }
 
@@ -46,7 +55,11 @@ export class CritshowBingoApp extends LitElement {
       .then(data => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.squares = (window.jsyaml.load(data) as any).spitz as string[];
-        console.log('this.squares', this.squares);
+        const yamlData = window.jsyaml.load(data) as object;
+        store.dispatch(setCharacters(Object.keys(yamlData)));
+        for (const [character, squares] of Object.entries(yamlData)) {
+          store.dispatch(setCharacterSquares({ [character]: squares }));
+        }
       });
   }
 }
