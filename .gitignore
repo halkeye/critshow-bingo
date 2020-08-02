@@ -1,2 +1,11 @@
-build/
-node_modules/
+/node_modules/
+/lib/
+/test/
+
+
+# top level source
+# TODO - move output to dist?
+*.d.ts
+*.d.ts.map
+*.js
+*.js.map
