@@ -1,16 +1,16 @@
-import {MyElement} from '../cs-element.js';
+import {CritshowBingoApp} from '../critshow-bingo-app.js';
 import {fixture, html} from '@open-wc/testing';
 
 const assert = chai.assert;
 
-suite('cs-element', () => {
+suite('critshow-bingo-app', () => {
   test('is defined', () => {
-    const el = document.createElement('cs-element');
-    assert.instanceOf(el, MyElement);
+    const el = document.createElement('critshow-bingo-app');
+    assert.instanceOf(el, CritshowBingoApp);
   });
 
   test('renders with default values', async () => {
-    const el = await fixture(html`<cs-element></cs-element>`);
+    const el = await fixture(html`<critshow-bingo-app></critshow-bingo-app>`);
     assert.shadowDom.equal(
       el,
       `
@@ -22,7 +22,7 @@ suite('cs-element', () => {
   });
 
   test('renders with a set name', async () => {
-    const el = await fixture(html`<cs-element name="Test"></cs-element>`);
+    const el = await fixture(html`<critshow-bingo-app name="Test"></critshow-bingo-app>`);
     assert.shadowDom.equal(
       el,
       `
@@ -34,7 +34,7 @@ suite('cs-element', () => {
   });
 
   test('handles a click', async () => {
-    const el = (await fixture(html`<cs-element></cs-element>`)) as MyElement;
+    const el = (await fixture(html`<critshow-bingo-app></critshow-bingo-app>`)) as CritshowBingoApp;
     const button = el.shadowRoot!.querySelector('button')!;
     button.click();
     await el.updateComplete;

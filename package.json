@@ -11,9 +11,9 @@
   "bugs": {
     "url": "https://github.com/halkeye/critshow-bingo/issues"
   },
-  "main": "cs-element.js",
-  "module": "cs-element.js",
-  "type": "module",
+  "disabled-main": "dist/critshow-bingo-app.js",
+  "disabled-module": "dist/critshow-bingo-app.js",
+  "disabled-type": "module",
   "homepage": "https://github.com/halkeye/critshow-bingo#readme",
   "scripts": {
     "build": "tsc",
@@ -39,15 +39,17 @@
     "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js"
   },
   "dependencies": {
+    "@types/karma": "^5.0.0",
     "lit-element": "^2.3.1"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.10.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
+    "@open-wc/rollup-plugin-html": "^1.1.0",
     "@open-wc/testing": "^2.5.10",
     "@open-wc/testing-karma": "^3.3.11",
     "@rollup/plugin-replace": "^2.3.1",
-    "@types/chai": "^4.2.11",
+    "@types/chai": "^4.2.12",
     "@types/js-yaml": "^3.12.5",
     "@types/mocha": "^7.0.2",
     "@types/yaml": "^1.9.7",
@@ -57,8 +59,10 @@
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.46.1",
     "eslint": "^6.8.0",
+    "eslint-plugin-lit": "^1.2.2",
     "karma": "^4.4.1",
     "karma-chai": "^0.1.0",
+    "karma-eslint": "^2.2.0",
     "karma-mocha": "^1.3.0",
     "lit-analyzer": "^1.1.10",
     "mocha": "^7.1.1",

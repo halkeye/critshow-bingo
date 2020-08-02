@@ -7,8 +7,8 @@ export class CSBBoard extends LitElement {
   static styles = css`
     .root {
       display: grid;
-      grid-column-gap: 1em;
-      grid-row-gap: 1em;
+      grid-column-gap: 0.5em;
+      grid-row-gap: 0.5em;
       grid-template-columns: repeat(5, auto);
       grid-template-rows: 7em auto;
       grid-auto-rows: 1fr;

@@ -1,3 +1,5 @@
+/* eslint-env mocha,node */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const {createDefaultConfig} = require('@open-wc/testing-karma');
 const merge = require('deepmerge');
 

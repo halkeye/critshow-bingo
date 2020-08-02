@@ -25,31 +25,30 @@ export class CritshowBingoApp extends LitElement {
 
   render() {
     return html`
-      <slot></slot>
       <img src="/images/critshow-banner-5.png" alt="critshow banner" />
       <csb-board .squares="${this.squares}" />
     `;
   }
 
-	connectedCallback() {
-		super.connectedCallback();
-		this.fetchData();
-	}
+  connectedCallback() {
+    super.connectedCallback();
+    this.fetchData();
+  }
 
-	fetchData() {
-		fetch('/squares.yaml')
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-			return response.text();
-		})
-		.then(data => {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			this.squares = (window.jsyaml.load(data) as any).spitz as string[];
-			console.log('this.squares', this.squares);
-		})
-	}
+  fetchData() {
+    fetch('/squares.yaml')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(data => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        this.squares = (window.jsyaml.load(data) as any).spitz as string[];
+        console.log('this.squares', this.squares);
+      });
+  }
 }
 
 declare global {
