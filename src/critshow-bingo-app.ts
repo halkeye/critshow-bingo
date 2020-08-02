@@ -35,6 +35,7 @@ export class CritshowBingoApp extends connect(store)(LitElement) {
 
   render() {
     return html`
+      <img src="/images/critshow-banner-5.png" alt="critshow banner" router-ignore />
       <csb-board .squares="${this.squares}"></csb-board>
     `;
   }
