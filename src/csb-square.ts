@@ -8,16 +8,18 @@ export default class Square extends LitElement {
       :host {
         background-color: white;
         color: black;
-        display: table-cell;
+        display: grid;
+        justify-content: center;
         position: relative;
-        padding: 0.50em;
       }
       div.text {
+        margin: 0.50em;
         font-size: 3vw;
         text-align: center;
         align-self: center;
         justify-self: center;
         user-select: none;
+        hyphens: auto;
       }
       .dabbed {
         position: absolute;

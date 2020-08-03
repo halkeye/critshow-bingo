@@ -17,9 +17,19 @@ export default class CSBBoard extends LitElement {
       grid-column-gap: 0.5em;
       grid-row-gap: 0.5em;
       grid-template-columns: repeat(5, 19%);
-      grid-template-rows: 7em auto;
-      grid-auto-rows: 1fr;
+      grid-template-rows: 3em 1fr;
       justify-content: center;
+    }
+    .root::before {
+      content: '';
+      width: 0;
+      padding-bottom: 100%;
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+    .root > *:first-child {
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
     }
     .star {
       grid-column-start: 3;
@@ -30,10 +40,10 @@ export default class CSBBoard extends LitElement {
   `;
 
   @property({ type: Array })
-  squares: string[] = [];
+  squares: string[] = new Array(26).fill('');
 
   @property({ type: Array })
-  selected: boolean[] = [];
+  selected: boolean[] = new Array(26).fill(false);
 
   render() {
     return html`

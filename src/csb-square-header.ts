@@ -14,6 +14,8 @@ export default class SquareHeader extends LitElement {
           align-self: center;
           justify-self: center;
           color: white;
+          padding: 0;
+          margin: 0;
         }
   `;
 
