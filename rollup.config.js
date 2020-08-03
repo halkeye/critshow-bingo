@@ -7,9 +7,9 @@ import index from '@open-wc/rollup-plugin-html';
 // https://github.com/open-wc/open-wc/tree/master/packages/rollup-plugin-html
 
 export default {
-  input: 'build/critshow-bingo-app.js',
+  input: ['build/critshow-bingo-app.js'],
   output: {
-    file: 'critshow-bingo-app.bundled.js',
+    dir: 'dist',
     format: 'esm',
   },
   onwarn(warning) {
@@ -18,7 +18,9 @@ export default {
     }
   },
   plugins: [
-    index(),
+    index({
+      files: ['dev/index.html'],
+    }),
     replace({
       'Reflect.decorate': 'undefined',
       'process.env.NODE_ENV': JSON.stringify( 'production' )
