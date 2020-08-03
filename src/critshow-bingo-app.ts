@@ -1,13 +1,25 @@
-import {LitElement, html, customElement, property, css} from 'lit-element';
-// import {Router} from '@vaadin/router'; 
+import {
+  LitElement,
+  html,
+  customElement,
+  property,
+  css,
+} from 'lit-element';
 import { connect } from 'pwa-helpers';
-import { store, RootState } from './redux/store';
-import { setCharacters, setCharacterSquares } from './redux/feature/characters';
+
+import {
+  store,
+  RootState,
+} from './redux/store';
+
+import {
+  setCharacters,
+} from './redux/feature/characters';
 
 import './csb-board';
 
 @customElement('critshow-bingo-app')
-export class CritshowBingoApp extends connect(store)(LitElement) {
+export default class CritshowBingoApp extends connect(store)(LitElement) {
   static styles = css`
     :host {
       display: block;
@@ -22,21 +34,25 @@ export class CritshowBingoApp extends connect(store)(LitElement) {
     }
   `;
 
-  stateChanged(state: RootState) { 
-    this.squares = state.characters.characterSquares[state.characters.selectedCharacter] || [];
-    this.characters = state.characters.characters;
+  stateChanged(state: RootState) {
+    this.characters = Object.keys(state.characters.characters);
+    this.squares = state.characters.selectedCharacter?.squares || [];
   }
 
-  @property({type: Array})
+  @property({ type: Array })
   squares: string[] = [];
 
-  @property({type: Array})
+  @property({ type: Array })
   characters: string[] = [];
 
   render() {
+    let body = html`<h1>Loading</h1>`;
+    if (this.characters && this.characters.length) {
+      body = html`<csb-board .squares="${this.squares}"></csb-board>`;
+    }
     return html`
       <img src="/images/critshow-banner-5.png" alt="critshow banner" router-ignore />
-      <csb-board .squares="${this.squares}"></csb-board>
+      ${body}
     `;
   }
 
@@ -47,20 +63,20 @@ export class CritshowBingoApp extends connect(store)(LitElement) {
 
   fetchData() {
     fetch('/squares.yaml')
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         return response.text();
       })
-      .then(data => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.squares = (window.jsyaml.load(data) as any).spitz as string[];
+      .then((data) => {
         const yamlData = window.jsyaml.load(data) as object;
-        store.dispatch(setCharacters(Object.keys(yamlData)));
-        for (const [character, squares] of Object.entries(yamlData)) {
-          store.dispatch(setCharacterSquares({ [character]: squares }));
-        }
+        const characters = Object.entries(yamlData).map(([character, characterData]) => ({
+          id: character,
+          name: characterData.name,
+          squares: characterData.squares,
+        }));
+        store.dispatch(setCharacters(characters));
       });
   }
 }

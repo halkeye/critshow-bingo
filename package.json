@@ -59,6 +59,8 @@
     "deepmerge": "^4.2.2",
     "es-dev-server": "^1.57.1",
     "eslint": "^7.6.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-lit": "^1.2.2",
     "karma": "^5.1.1",
     "karma-chai": "^0.1.0",

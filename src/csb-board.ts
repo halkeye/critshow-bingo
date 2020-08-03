@@ -1,4 +1,6 @@
-import {LitElement, html, customElement, property, css} from 'lit-element';
+import {
+  LitElement, html, customElement, property, css,
+} from 'lit-element';
 import './csb-square';
 import './csb-square-header';
 
@@ -21,7 +23,7 @@ export class CSBBoard extends LitElement {
     }
   `;
 
-  @property({type: Array})
+  @property({ type: Array })
   squares: string[] = [];
 
   render() {
@@ -32,7 +34,7 @@ export class CSBBoard extends LitElement {
       <csb-square-header label="N"></csb-square-header>
       <csb-square-header label="G"></csb-square-header>
       <csb-square-header label="O"></csb-square-header>
-      ${this.squares.map(sq => html`<csb-square text="${sq}"></csb-square>`)}
+      ${this.squares.map((sq) => html`<csb-square text="${sq}"></csb-square>`)}
       <csb-square star class="star"></csb-square>
     `;
   }
@@ -43,4 +45,3 @@ declare global {
     'csb-board': CSBBoard;
   }
 }
-

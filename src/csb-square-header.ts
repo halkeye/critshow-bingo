@@ -1,4 +1,6 @@
-import {LitElement, html, customElement, property, css} from 'lit-element';
+import {
+  LitElement, html, customElement, property, css,
+} from 'lit-element';
 
 @customElement('csb-square-header')
 export class SquareHeader extends LitElement {
@@ -14,8 +16,9 @@ export class SquareHeader extends LitElement {
           color: white;
         }
   `;
-  @property({type: String})
-  label = ''
+
+  @property({ type: String })
+  label = '';
 
   render() {
     return html`

@@ -1,4 +1,6 @@
-import {LitElement, html, customElement, property, css} from 'lit-element';
+import {
+  LitElement, html, customElement, property, css,
+} from 'lit-element';
 
 @customElement('csb-square')
 export class Square extends LitElement {
@@ -15,11 +17,12 @@ export class Square extends LitElement {
         justify-self: center;
       }
   `;
-  @property({type: Boolean})
+
+  @property({ type: Boolean })
   star = false;
 
-  @property({type: String})
-  text = ''
+  @property({ type: String })
+  text = '';
 
   render() {
     return html`
@@ -29,7 +32,7 @@ export class Square extends LitElement {
 					<path fill="gold" stroke="black" d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/>
 				</svg>
 			</div>
-			` : '' }
+			` : ''}
     `;
   }
 }
@@ -39,5 +42,3 @@ declare global {
     'csb-square': Square;
   }
 }
-
-

@@ -3,8 +3,8 @@ import characters from './feature/characters';
 
 export const store = configureStore({
   reducer: {
-    characters
-  }
+    characters,
+  },
 });
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
