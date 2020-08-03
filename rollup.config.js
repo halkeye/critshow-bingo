@@ -4,6 +4,7 @@ import {terser} from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import index from '@open-wc/rollup-plugin-html';
+import copy from 'rollup-plugin-copy'
 // https://github.com/open-wc/open-wc/tree/master/packages/rollup-plugin-html
 
 export default {
@@ -18,6 +19,11 @@ export default {
     }
   },
   plugins: [
+    copy({
+      targets: [
+        { src: 'squares.yaml', dest: 'dist/' },
+      ]
+    }),
     index({
       files: ['dev/index.html'],
     }),
