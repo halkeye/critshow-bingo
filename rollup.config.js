@@ -22,6 +22,8 @@ export default {
     copy({
       targets: [
         { src: 'squares.yaml', dest: 'dist/' },
+        { src: 'images/**/*', dest: 'dist/images/' },
+
       ]
     }),
     index({
