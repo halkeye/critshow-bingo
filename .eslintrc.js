@@ -26,6 +26,14 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'lit'],
   rules: {
+    "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": false }],
+    "object-curly-spacing": ["error", "always"],
+    "object-curly-newline": ["error", {
+      "ObjectExpression": { "multiline": true, "minProperties": 3 },
+      "ObjectPattern": { "multiline": true, "minProperties": 3 },
+      "ImportDeclaration": { "multiline": true, "minProperties": 3 },
+      "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+    }],
     quotes: [1, 'single', { avoidEscape: false, allowTemplateLiterals: true }],
     semi: [2, 'always'],
     'class-methods-use-this': ['off'],

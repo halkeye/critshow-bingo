@@ -3,7 +3,7 @@ import {
 } from 'lit-element';
 
 @customElement('csb-square-header')
-export class SquareHeader extends LitElement {
+export default class SquareHeader extends LitElement {
   static styles = css`
         :host {
           background-color: #7E1E14;
@@ -21,9 +21,7 @@ export class SquareHeader extends LitElement {
   label = '';
 
   render() {
-    return html`
-			<h1>${this.label}</h1>
-    `;
+    return html`<h1>${this.label}</h1>`;
   }
 }
 

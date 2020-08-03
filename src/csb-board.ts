@@ -1,19 +1,24 @@
 import {
-  LitElement, html, customElement, property, css,
+  LitElement,
+  html,
+  customElement,
+  property,
+  css,
 } from 'lit-element';
 import './csb-square';
 import './csb-square-header';
 
 @customElement('csb-board')
-export class CSBBoard extends LitElement {
+export default class CSBBoard extends LitElement {
   static styles = css`
     .root {
       display: grid;
       grid-column-gap: 0.5em;
       grid-row-gap: 0.5em;
-      grid-template-columns: repeat(5, auto);
+      grid-template-columns: repeat(5, 19%);
       grid-template-rows: 7em auto;
       grid-auto-rows: 1fr;
+      justify-content: center;
     }
     .star {
       grid-column-start: 3;
