@@ -4,6 +4,7 @@ import {
   customElement,
   property,
   css,
+  eventOptions,
 } from 'lit-element';
 import './csb-square';
 import './csb-square-header';
@@ -31,6 +32,9 @@ export default class CSBBoard extends LitElement {
   @property({ type: Array })
   squares: string[] = [];
 
+  @property({ type: Array })
+  selected: boolean[] = [];
+
   render() {
     return html`
     <div class="root">
@@ -39,9 +43,27 @@ export default class CSBBoard extends LitElement {
       <csb-square-header label="N"></csb-square-header>
       <csb-square-header label="G"></csb-square-header>
       <csb-square-header label="O"></csb-square-header>
-      ${this.squares.map((sq) => html`<csb-square text="${sq}"></csb-square>`)}
+      ${this.squares.map((sq, idx) => html`<csb-square 
+        @click="${this.handleClick}"
+        data-index="${idx}"
+        ?dabbed=${this.selected[idx]}
+        text="${sq}"
+      ></csb-square>`)}
       <csb-square star class="star"></csb-square>
     `;
+  }
+
+  @eventOptions({ capture: true })
+  handleClick(e: MouseEvent) {
+    const { index } = (<HTMLElement>e.target).dataset;
+    if (index !== undefined) {
+      const idx = parseInt(index, 10);
+      this.selected = [
+        ...this.selected.slice(0, idx),
+        !this.selected[idx],
+        ...this.selected.slice(idx + 1),
+      ];
+    }
   }
 }
 

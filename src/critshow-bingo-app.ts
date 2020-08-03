@@ -69,12 +69,26 @@ export default class CritshowBingoApp extends LitElement {
 
   updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
+    if (changedProperties.has('characters')) {
+      if (this.characters.length === 1) {
+        // eslint-disable-next-line prefer-destructuring
+        this.selectedCharacter = this.characters[0];
+      }
+    }
     if (changedProperties.has('selectedCharacter')) {
       this.squares = [...Array.from(Array(this.numberOfSquares).keys())].sort(
         () => Math.random() - Math.random(),
       );
     }
   }
+
+  // getDefaultTab() {
+  //   const tabName = (typeof window !== 'undefined' && window.location.hash.replace('#', '')) || tabs[0].id;
+  //   if (tabs.find((tab) => tab.id === tabName)) {
+  //     return tabName;
+  //   }
+  //   return tabs[0].id;
+  // }
 
   connectedCallback() {
     super.connectedCallback();
@@ -93,10 +107,6 @@ export default class CritshowBingoApp extends LitElement {
       name: characterData.name,
       squares: characterData.squares,
     }));
-    if (this.characters.length === 1) {
-      // eslint-disable-next-line prefer-destructuring
-      this.selectedCharacter = this.characters[0];
-    }
   }
 }
 

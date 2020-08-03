@@ -7,9 +7,7 @@ import {
   css,
 } from 'lit-element';
 import '@polymer/paper-button/paper-button';
-import {
-  Character,
-} from './types/character';
+import { Character } from './types/character';
 
 @customElement('csb-character-selector')
 export default class CSBBoard extends LitElement {
@@ -51,13 +49,6 @@ export default class CSBBoard extends LitElement {
   @eventOptions({ capture: true })
   handleClick(e: MouseEvent) {
     const { characterId } = (<HTMLElement>e.target).dataset;
-    this.dispatchEvent(
-      new CustomEvent('selected-character', {
-        detail: { characterId },
-        bubbles: true,
-        composed: true,
-      }),
-    );
     this.dispatchEvent(
       new CustomEvent('selectedCharacter', {
         detail: { characterId },
