@@ -47,7 +47,7 @@ export default class CritshowBingoApp extends LitElement {
   render() {
     let body = html`<h1>Loading</h1>`;
     if (this.selectedCharacter) {
-      body = html`<csb-board 
+      body = html`<csb-board
         .allSquares="${this.selectedCharacter?.squares}"
         .chosenSquares="${this.squares}"
         @boardChanged="${this.handleBoardChanged}"
@@ -61,8 +61,8 @@ export default class CritshowBingoApp extends LitElement {
     }
     return html`
       <a href="#" @click="${this.handleNewGameClick}">
-        <img 
-          src="/images/critshow-banner-5.png"
+        <img
+          src="./images/critshow-banner-5.png"
           alt="critshow banner"
         />
       </a>

@@ -15,6 +15,7 @@ module.exports = {
     },
   ],
   extends: [
+    '@open-wc/eslint-config',
     'airbnb-typescript/base',
     'plugin:lit/recommended',
   ],
@@ -26,6 +27,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'lit'],
   rules: {
+    "wc/guard-super-call": ["off"],
     "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": false }],
     "object-curly-spacing": ["error", "always"],
     "object-curly-newline": ["error", {
@@ -37,16 +39,5 @@ module.exports = {
     quotes: [1, 'single', { avoidEscape: false, allowTemplateLiterals: true }],
     semi: [2, 'always'],
     'class-methods-use-this': ['off'],
-    // 'no-unexpected-multiline': 'off',
-    // '@typescript-eslint/indent': 'off',
-    // '@typescript-eslint/explicit-function-return-type': 'off',
-    // '@typescript-eslint/no-non-null-assertion': 'off',
-    // '@typescript-eslint/no-use-before-define': 'off',
-    // '@typescript-eslint/no-unused-vars': [
-    //   'warn',
-    //   {
-    //     argsIgnorePattern: '^_'
-    //   }
-    // ]
   }
 };
