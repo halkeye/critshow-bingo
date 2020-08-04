@@ -76,9 +76,13 @@ export default class CritshowBingoApp extends LitElement {
       }
     }
     if (changedProperties.has('selectedCharacter')) {
-      this.squares = [...Array.from(Array(this.numberOfSquares).keys())].sort(
-        () => Math.random() - Math.random(),
-      );
+      if (this.selectedCharacter) {
+        this.squares = [...Array.from(Array(this.selectedCharacter.squares.length).keys())].sort(
+          () => Math.random() - Math.random(),
+        ).slice(0, this.numberOfSquares);
+      } else {
+        this.squares = Array.from(Array(this.numberOfSquares)).fill('');
+      }
     }
   }
 
