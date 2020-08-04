@@ -116,10 +116,6 @@ export default class CritshowBingoApp extends LitElement {
         }),
       );
     }
-
-    if (changedProperties.has('characters')) {
-      this.selectCharacter();
-    }
   }
 
   connectedCallback() {
@@ -140,7 +136,9 @@ export default class CritshowBingoApp extends LitElement {
       name: characterData.name,
       squares: characterData.squares,
     }));
-    if (hash) {
+    if (!hash) {
+      this.selectCharacter();
+    } else {
       const [characterId, squares] = hash.replace('#', '').split('|');
       if (characterId) {
         this.selectedCharacter = this.characters.find((c) => c.id === characterId);
