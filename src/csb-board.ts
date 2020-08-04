@@ -6,6 +6,8 @@ import {
   css,
   eventOptions,
 } from 'lit-element';
+import { PropertyValues } from 'lit-element/src/lib/updating-element';
+import { Square } from './types';
 import './csb-square';
 import './csb-square-header';
 
@@ -40,10 +42,10 @@ export default class CSBBoard extends LitElement {
   `;
 
   @property({ type: Array })
-  squares: string[] = new Array(26).fill('');
+  chosenSquares: Square[] = [];
 
   @property({ type: Array })
-  selected: boolean[] = new Array(26).fill(false);
+  allSquares: string[] = [];
 
   render() {
     return html`
@@ -53,14 +55,29 @@ export default class CSBBoard extends LitElement {
       <csb-square-header label="N"></csb-square-header>
       <csb-square-header label="G"></csb-square-header>
       <csb-square-header label="O"></csb-square-header>
-      ${this.squares.map((sq, idx) => html`<csb-square 
+      ${this.chosenSquares.map((sq, idx) => html`<csb-square 
         @click="${this.handleClick}"
         data-index="${idx}"
-        ?dabbed=${this.selected[idx]}
-        text="${sq}"
+        ?dabbed=${sq.selected}
+        text="${this.allSquares[sq.idx]}"
       ></csb-square>`)}
       <csb-square star class="star"></csb-square>
     `;
+  }
+
+  dispatchBoardChanged() {
+    this.dispatchEvent(
+      new CustomEvent('boardChanged', {
+        detail: { chosenSquares: this.chosenSquares },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    this.dispatchBoardChanged();
   }
 
   @eventOptions({ capture: true })
@@ -68,11 +85,15 @@ export default class CSBBoard extends LitElement {
     const { index } = (<HTMLElement>e.target).dataset;
     if (index !== undefined) {
       const idx = parseInt(index, 10);
-      this.selected = [
-        ...this.selected.slice(0, idx),
-        !this.selected[idx],
-        ...this.selected.slice(idx + 1),
+      this.chosenSquares = [
+        ...this.chosenSquares.slice(0, idx),
+        {
+          ...this.chosenSquares[idx],
+          selected: !this.chosenSquares[idx].selected,
+        },
+        ...this.chosenSquares.slice(idx + 1),
       ];
+      this.dispatchBoardChanged();
     }
   }
 }

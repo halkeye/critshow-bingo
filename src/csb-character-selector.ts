@@ -7,7 +7,7 @@ import {
   css,
 } from 'lit-element';
 import '@polymer/paper-button/paper-button';
-import { Character } from './types/character';
+import { Character } from './types';
 
 @customElement('csb-character-selector')
 export default class CSBBoard extends LitElement {

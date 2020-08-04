@@ -3,3 +3,8 @@ export type Character = {
   name: string;
   squares: string[];
 };
+
+export type Square = {
+  idx: number;
+  selected: boolean;
+};

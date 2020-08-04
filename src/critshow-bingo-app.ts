@@ -8,7 +8,7 @@ import {
   eventOptions,
 } from 'lit-element';
 import { PropertyValues } from 'lit-element/src/lib/updating-element';
-import { Character } from './types/character';
+import { Character, Square } from './types';
 
 import './csb-board';
 import './csb-character-selector';
@@ -42,13 +42,16 @@ export default class CritshowBingoApp extends LitElement {
   selectedCharacter: Character | undefined = undefined;
 
   @internalProperty()
-  squares: number[] = [];
+  squares: Square[] = [];
 
   render() {
     let body = html`<h1>Loading</h1>`;
     if (this.selectedCharacter) {
-      const squares = this.squares.map((s) => this.selectedCharacter?.squares[s]);
-      body = html`<csb-board .squares="${squares}" ></csb-board>`;
+      body = html`<csb-board 
+        .allSquares="${this.selectedCharacter?.squares}"
+        .chosenSquares="${this.squares}"
+        @boardChanged="${this.handleBoardChanged}"
+      ></csb-board>`;
     } else if (this.characters && this.characters.length) {
       body = html`
         <csb-character-selector
@@ -63,36 +66,45 @@ export default class CritshowBingoApp extends LitElement {
   }
 
   @eventOptions({ capture: true })
+  handleBoardChanged(e: CustomEvent) {
+    const { chosenSquares } = e.detail;
+    const joinedChosen = chosenSquares.map((s: Square) => [s.idx, s.selected ? 't' : 'f'].join('')).join('');
+    window.history.replaceState(
+      null,
+      '',
+      `#${[
+        this.selectedCharacter?.id,
+        joinedChosen,
+      ].join('|')}`,
+    );
+  }
+
+  @eventOptions({ capture: true })
   handleSelectedCharacter(e: CustomEvent) {
     this.selectedCharacter = this.characters.find((c) => c.id === e.detail.characterId);
   }
 
   updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
+    if (changedProperties.has('selectedCharacter') && !changedProperties.has('squares')) {
+      const length = this.numberOfSquares || this.selectedCharacter?.squares?.length;
+      this.squares = [...Array.from(Array(length).keys())].sort(
+        () => Math.random() - Math.random(),
+      ).slice(0, this.numberOfSquares).map(
+        (val) => ({
+          idx: val,
+          selected: false,
+        }),
+      );
+    }
+
     if (changedProperties.has('characters')) {
       if (this.characters.length === 1) {
         // eslint-disable-next-line prefer-destructuring
         this.selectedCharacter = this.characters[0];
       }
     }
-    if (changedProperties.has('selectedCharacter')) {
-      if (this.selectedCharacter) {
-        this.squares = [...Array.from(Array(this.selectedCharacter.squares.length).keys())].sort(
-          () => Math.random() - Math.random(),
-        ).slice(0, this.numberOfSquares);
-      } else {
-        this.squares = Array.from(Array(this.numberOfSquares)).fill('');
-      }
-    }
   }
-
-  // getDefaultTab() {
-  //   const tabName = (typeof window !== 'undefined' && window.location.hash.replace('#', '')) || tabs[0].id;
-  //   if (tabs.find((tab) => tab.id === tabName)) {
-  //     return tabName;
-  //   }
-  //   return tabs[0].id;
-  // }
 
   connectedCallback() {
     super.connectedCallback();
@@ -100,6 +112,7 @@ export default class CritshowBingoApp extends LitElement {
   }
 
   async fetchData() {
+    const { hash } = window.location;
     const response = await fetch('/squares.yaml');
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -111,6 +124,24 @@ export default class CritshowBingoApp extends LitElement {
       name: characterData.name,
       squares: characterData.squares,
     }));
+    if (hash) {
+      const [characterId, squares] = hash.replace('#', '').split('|');
+      if (characterId) {
+        this.selectedCharacter = this.characters.find((c) => c.id === characterId);
+      }
+      if (squares) {
+        const matched = squares.match(/(\d+)([tf])/g);
+        if (matched) {
+          this.squares = matched.map((s) => {
+            const [, idx, tf] = s.match(/(\d+)([tf])/) || [];
+            return {
+              idx: parseInt(idx, 10),
+              selected: tf === 't',
+            };
+          });
+        }
+      }
+    }
   }
 }
 
