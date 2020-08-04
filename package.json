@@ -16,7 +16,10 @@
   "disabled-type": "module",
   "homepage": "https://github.com/halkeye/critshow-bingo#readme",
   "scripts": {
-    "build": "tsc",
+    "dev": "run-p build:watch serve",
+    "dist": "run-s build:once build:dist",
+    "build:once": "tsc",
+    "build:dist": "rollup -c",
     "build:watch": "tsc --watch",
     "clean": "rimraf build",
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
@@ -27,8 +30,7 @@
     "test": "karma start karma.conf.cjs",
     "test:watch": "karma start karma.conf.cjs --auto-watch=true --single-run=false",
     "test:update-snapshots": "karma start karma.conf.cjs --update-snapshots",
-    "test:prune-snapshots": "karma start karma.conf.cjs --prune-snapshots",
-    "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js"
+    "test:prune-snapshots": "karma start karma.conf.cjs --prune-snapshots"
   },
   "dependencies": {
     "@polymer/paper-button": "^3.0.1",
@@ -64,6 +66,7 @@
     "karma-mocha": "^2.0.1",
     "lit-analyzer": "^1.2.1",
     "mocha": "^8.1.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
     "rollup-plugin-copy": "^3.3.0",
