@@ -8,8 +8,8 @@ import {
   eventOptions,
 } from 'lit-element';
 import { PropertyValues } from 'lit-element/src/lib/updating-element';
-import { Character, Square } from './types';
 
+import { Character, Square } from './types';
 import './csb-board';
 import './csb-character-selector';
 
@@ -22,7 +22,7 @@ export default class CritshowBingoApp extends LitElement {
 
       padding: 10px;
     }
-    img {
+    a img {
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -60,9 +60,20 @@ export default class CritshowBingoApp extends LitElement {
         ></csb-character-selector>`;
     }
     return html`
-      <img src="/images/critshow-banner-5.png" alt="critshow banner" router-ignore />
+      <a href="#" @click="${this.handleNewGameClick}">
+        <img 
+          src="/images/critshow-banner-5.png"
+          alt="critshow banner"
+        />
+      </a>
       ${body}
     `;
+  }
+
+  @eventOptions({ capture: true })
+  handleNewGameClick(e: MouseEvent) {
+    e.preventDefault();
+    this.selectCharacter();
   }
 
   @eventOptions({ capture: true })
@@ -84,6 +95,14 @@ export default class CritshowBingoApp extends LitElement {
     this.selectedCharacter = this.characters.find((c) => c.id === e.detail.characterId);
   }
 
+  selectCharacter() {
+    this.selectedCharacter = undefined;
+    if (this.characters.length === 1) {
+      // eslint-disable-next-line prefer-destructuring
+      this.selectedCharacter = this.characters[0];
+    }
+  }
+
   updated(changedProperties: PropertyValues) {
     super.updated(changedProperties);
     if (changedProperties.has('selectedCharacter') && !changedProperties.has('squares')) {
@@ -99,10 +118,7 @@ export default class CritshowBingoApp extends LitElement {
     }
 
     if (changedProperties.has('characters')) {
-      if (this.characters.length === 1) {
-        // eslint-disable-next-line prefer-destructuring
-        this.selectedCharacter = this.characters[0];
-      }
+      this.selectCharacter();
     }
   }
 

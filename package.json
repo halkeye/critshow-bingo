@@ -1,7 +1,7 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "critshow-bingo",
   "version": "4.0.0",
-  "description": "A starting point for Polymer apps",
+  "description": "Critical Hit Show | Bingo",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/halkeye/critshow-bingo.git"
