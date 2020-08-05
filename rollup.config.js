@@ -49,6 +49,7 @@ export default merge(baseConfig, {
       swDest: 'dist/sw.js',
       globDirectory: 'dist/',
       globPatterns: [
+        '**/*.html',
         '**/*.yaml',
         '**/*.png',
         '**/*.ico',
