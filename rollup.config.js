@@ -1,6 +1,7 @@
 import merge from 'deepmerge';
 import copy from 'rollup-plugin-copy';
 import filesize from 'rollup-plugin-filesize';
+import { generateSW } from 'rollup-plugin-workbox';
 
 // use createSpaConfig for bundling a Single Page App
 import { createSpaConfig } from '@open-wc/building-rollup';
@@ -20,7 +21,7 @@ const baseConfig = createSpaConfig({
   developmentMode: process.env.ROLLUP_WATCH === 'true',
 
   // set to true to inject the service worker registration into your index.html
-  injectServiceWorker: true,
+  injectServiceWorker: false,
 });
 
 export default merge(baseConfig, {
@@ -35,13 +36,25 @@ export default merge(baseConfig, {
     copy({
       targets: [
         { src: 'squares.yaml', dest: 'dist/' },
-        { src: 'src/images/**/*', dest: 'dist/' }
+        { src: 'images/**/*', dest: 'dist/images/' },
+        { src: 'manifest.webmanifest', dest: 'dist/' },
       ],
       // set flatten to false to preserve folder structure
       flatten: false,
     }),
     filesize({
       showBrotliSize: true,
+    }),
+    generateSW({
+      swDest: 'dist/sw.js',
+      globDirectory: 'dist/',
+      globPatterns: [
+        '**/*.yaml',
+        '**/*.png',
+        '**/*.ico',
+        '**/*.css',
+        '**/*.js'
+      ],
     })
   ],
 });

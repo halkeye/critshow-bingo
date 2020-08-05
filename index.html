@@ -7,6 +7,8 @@
     <title>Critical Hit Show | Bingo</title>
     <meta name="description" content="A Live, Improvised Epic Adventure! The Rio Theatre, Vancouver BC #dndlive bingo #bingo" />
     <link rel="icon" href="./images/favicon.ico">
+    <link rel="manifest" href="/manifest.webmanifest">
+
     <meta name="theme-color" content="#3D0A00">
 
     <meta name="author" content="Gavin Mogan <https://www.gavinmogan.com>">
@@ -64,5 +66,10 @@
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>
+    <script>
+    if ("serviceWorker" in navigator){
+      window.addEventListener("load", () => { navigator.serviceWorker.register("./sw.js"); })
+    }
+    </script>
   </body>
 </html>

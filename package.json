@@ -17,7 +17,7 @@
   "homepage": "https://github.com/halkeye/critshow-bingo#readme",
   "scripts": {
     "dist": "npm run build",
-    "dev": "npm run start:build",
+    "dev": "npm run start",
     "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
     "lint": "npm run lint:eslint",
@@ -27,8 +27,8 @@
     "storybook": "concurrently --kill-others --names tsc,storybook \"npm run tsc:watch\" \"start-storybook --node-resolve --watch --open\"",
     "storybook:build": "build-storybook",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
-    "start:build": "npm run build && es-dev-server --root-dir dist --app-index index.html --open --compatibility none",
-    "start": "concurrently --kill-others --names tsc,es-dev-server \"npm run tsc:watch\" \"es-dev-server --app-index index.html --node-resolve --open --watch\"",
+    "start:build": "npm run build && es-dev-server --root-dir dist --port 3000 --compatibility none",
+    "start": "concurrently --kill-others --names tsc,es-dev-server \"npm run tsc:watch\" \"es-dev-server --port 3000 --node-resolve --watch\"",
     "tsc:watch": "tsc --watch"
   },
   "dependencies": {
