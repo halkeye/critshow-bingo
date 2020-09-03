@@ -28,4 +28,7 @@ spitz:
 
 benoit:
   name: Benôit the Annointed
-  squares: []
+  squares:
+    - Doesn't heal someone
+    - Mentions that he's hiding his soul for safe-keeping, and borrowing someone else's
+    - Gets another party member to tell a story
