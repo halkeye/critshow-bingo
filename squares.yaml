@@ -28,4 +28,9 @@ spitz:
 
 belle:
   name: Belle Strummer
-  squares: []
+  squares:
+    - Threatens to cut someone's limbs off
+    - Cuts someone's arm(s) off
+    - Cuts someone's leg(s) off
+    - Suggests the team does a murder
+    - Makes a dexterity check
