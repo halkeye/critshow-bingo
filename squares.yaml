@@ -28,4 +28,15 @@ spitz:
 
 ingrid:
   name: Ingrid, the halfling weaponmaster
-  squares: []
+  squares:
+    - Performs a highly choreographed attack before knowing the roll
+    - Eats something she isn't supposed to
+    - Uses I Know a Guy
+    - Rummages through backpack
+    - Makes a strength roll
+    - Offers someone something in her backpack
+    - Accidentally drops weapon
+    - Makes a chef roll
+    - Makes a charisma roll
+    - Uses dental floss
+    - Uses raised by giants
